@@ -1,8 +1,26 @@
 # Aggregation script.
 # Last update: 11 January 2021.
-
-# Clearing environment.
 rm(list = ls())
+printLogFile = FALSE
+
+
+# Writing console log to file:
+if (!dir.exists("./output/")) dir.create("./output/")
+if (printLogFile) {
+  consoleLog <- file("./output/log.txt", open = "wt")
+  sink(consoleLog, type = "output")
+  sink(consoleLog, type = "message")
+  print(Sys.time())
+  print(version)
+  cat("_________________________________________________________________\n\n\n")
+}
+
+
+# Checking for valid input data.
+if (!dir.exists("./data/")) {
+  dir.create("./data/")
+  stop("Data file not found. Please add it to the 'data' folder.")
+}
 
 
 # Aggregation functions ________________________________________________________
@@ -343,3 +361,16 @@ truncate <- function(x, min = 0, max = 1){
   )
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+if (printLogFile) sink(NULL)
